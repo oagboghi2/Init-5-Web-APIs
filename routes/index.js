@@ -4,29 +4,15 @@ var router = express.Router();
 var db = require('../database/queries')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  //res.render('index', { title: 'Express' });
-  res.render('index.pug', { title: 'Music Player' });
-  //res.send("Music_Player beta v1.0.0")
-});
-
+router.get('/', db.getAllMusic)
 router.get('/api/music', db.getAllMusic);
-router.get('/api/music/songs/:id', db.getSingleSong);
-
-
-
-router.get('/api/music/album/:id', db.getSingleAlbum);
+router.get('/api/music/songs/', db.getSingleSong);
+router.get('/api/music/album/', db.getSingleAlbum);
 router.post('/api/music/add/', function( req, res ) {
   const { song_title, artist } = req.body
   console.log(req.body);
-  //const song_title = req.body.song_title
-  //const length = req.body.length
-  //const song_count = req.body.song_count
   console.log( 'TITLE', song_title )
-  //console.log( 'LENGTH', length )
-  //console.log( 'COUNT', song_count )
   console.log( 'BODY ', req.body)
-
   db.createSong( song_title, artist )
     .then( function() { res.status(201).json({
           status: 'success',

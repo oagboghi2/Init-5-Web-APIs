@@ -14,6 +14,7 @@ function getAllMusic(req, res, next){
   db.any('SELECT * FROM album')
     .then(function (data){
       res.render('../views/index.pug', {data: data})
+      console.log(data);
       // res.status(200)
       //     .json({
       //       status:'success',
@@ -26,8 +27,9 @@ function getAllMusic(req, res, next){
       });
     }
 function getSingleAlbum(req, res, next){
-      var songID = parseInt(req.params.id);
-      db.any('SELECT * FROM album WHERE id = $1', songID)
+      var album_title = req.query.album_title;
+      console.log(req.query);
+      db.any('SELECT album_title, artist FROM album WHERE album_title = $1', album_title)
       .then(function (data){
         res.render('../views/index.pug', {data: data})
         res.status(200)
@@ -44,8 +46,9 @@ function getSingleAlbum(req, res, next){
 
 
 function getSingleSong(req, res, next){
-  var songID = parseInt(req.params.id);
-  db.one('SELECT * FROM songs WHERE id = $1', songID)
+  var songID = parseInt(req.query.id);
+  var song_title = req.query.song_title;
+  db.any('SELECT song_title, video FROM songs WHERE song_title = $1', song_title)
   .then(function (data){
     res.render('../views/index.pug', {data: data})
      res.status(200)
@@ -69,38 +72,25 @@ function createSong( song_title, artist ) {
 function updateSong( song_title, artist ) {
 
   console.log(song_title);
-  return db.one('INSERT INTO songs(song_title, artist) VALUES ($1, $2) RETURNING id',[song_title, artist])
+  return db.one('UPDATE songs(song_title, artist) SET ($1, $2) RETURNING id',[song_title, artist])
 }
-/*function updateSong(req, res, next){
-  db.none('UPDATE songs SET songTitle = $1, length = #2, songCount = $3',
-[req.body.name, req.body.songTitle, parseInt(req.body.length), parse(req.body.songCount)])
-  .then(function (){
-    res.status(200)
-      .json({
-          status: 'success',
-          message: 'update song'
-      })
-  })
-  .catch(function(err){
-    return next(err);
-  });
-}
-*/
+
+//UPDATE songs SET song_titles = '' WHERE id = 1;
 
 function removeSong(req, res, next){
-  var songID = parseInt(req.params.id);
-  db.result('DELETE FROM songs WHERE id = $1', songID)
-    .then(function (reslt){
-      res.status(200)
-        .json({
-          status: 'success',
-          message: 'Removed ${result.rowCount} puppy'
-        })
-        /*jshint ignore:end */
-    })
-    .catch(function (err){
-      return next(err);
-    });
+  var song_title = parseInt(req.query.song_title);
+  db.result('DELETE FROM songs WHERE song_title = $1', song_title)
+    // .then(function (result){
+    //   res.status(200)
+    //     .json({
+    //       status: 'success',
+    //       message: 'Removed song'
+    //     })
+    //     /*jshint ignore:end */
+    // })
+    // .catch(function (err){
+    //   return next(err);
+    // });
 }
 
 module.exports = {

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS album;
 CREATE TABLE album(
 id SERIAL PRIMARY KEY,
 album_title VARCHAR(255),
-song_count INTEGER,
+song_count  video,INTEGER,
 genre VARCHAR(255),
 artist VARCHAR(255)
 );
@@ -22,6 +22,7 @@ id SERIAL PRIMARY KEY,
 song_title VARCHAR(255),
 length INTEGER,
 song_count INTEGER,
+video VARCHAR(512),
 artist VARCHAR(255)
 );
 
@@ -40,15 +41,20 @@ INSERT INTO artist( name, band_members, genre, artist_album ) VALUES('John Mayer
 INSERT INTO artist( name, band_members, genre, artist_album ) VALUES('Mayer Hawthorne', 'The County', 'Neo-Soul', 'Where does this door go' );
 INSERT INTO artist( name, band_members, genre, artist_album ) VALUES('Kendrick Lamarr', 'Black Hippy', 'Rap/HipHop', 'The Search for Everything' );
 
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Rosie', 4, 12, 'John Mayer' );
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Backseat Lover', 3, 12, 'Mayer Hawthorne' );
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Drink', 6, 16, 'Kendrick Lamarr' );
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Viva La Gadda', 17, 2, 'Mars Volta' );
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Helpless', 3, 12, 'John Mayer' );
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Take a Bow', 4, 3, 'Muse' );
-INSERT INTO songs( song_title, length, song_count, artist ) VALUES('Supermassice Black Hole', 4, 6, 'Muse' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Rosie', 4, 12, 'https://www.youtube.com/watch?v=Np7A1bT3lrg','John Mayer' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Backseat Lover', 3, 12, 'https://www.youtube.com/watch?v=vgwiBrwNiPw','Mayer Hawthorne' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Drink', 6, 16, 'https://www.youtube.com/watch?v=B5YNiCfWC3A','Kendrick Lamarr' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Day of the Baphomet', 17, 2, 'https://www.youtube.com/watch?v=2C0F7eFxhXM','Mars Volta' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Helpless', 3, 12, 'https://www.youtube.com/watch?v=DOdN6utMgQQ','John Mayer' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Take a Bow', 4, 3, 'https://www.youtube.com/watch?v=zy0IOZNq9Cs','Muse' );
+INSERT INTO songs( song_title, length, song_count, video, artist ) VALUES('Supermassice Black Hole', 4, 6, 'https://www.youtube.com/watch?v=Xsp3_a-PMTw','Muse' );
 
 
+
+SELECT album_title, artists FROM artist
+			JOIN songs
+			ON songs.id = album.id;
+WHERE albumTitle LIKE 'The Search for Everything';
 -- SELECT albumTitle FROM album;
 -- SELECT * FROM playlist;
 -- SELECT * FROM songs;

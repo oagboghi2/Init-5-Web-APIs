@@ -10,9 +10,6 @@ var users = require('./routes/users');
 
 var app = express();
 
-app.listen(3000, function(){
-  console.log("The backend is in another castle");
-});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -68,4 +65,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.listen(3000, function(){
+  console.log("The backend is in another castle");
+});
 module.exports = app;

@@ -6,3 +6,27 @@ body {
 a {
   color: #00B7FF;
 }
+
+/*html{
+  background: url(http://i.imgur.com/b9r5sEL.jpg);
+}*/
+.col{
+    display: -webkit-flex;
+    display: flex;
+    width: 300px;
+    height: 200px;
+    background-color: lightgrey;
+    BORDER-STYLE: solid;
+    border-color: green;
+}
+h1{
+
+}
+
+p{
+
+}
+
+form{
+
+}

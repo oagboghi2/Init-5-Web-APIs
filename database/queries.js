@@ -13,12 +13,13 @@ var db = pgp(connectionString);
 function getAllMusic(req, res, next){
   db.any('SELECT * FROM album')
     .then(function (data){
-      res.status(200)
-          .json({
-            status:'success',
-            data:data,
-            message: 'Retrieved ALL music'
-          });
+      res.render('../views/index.pug', {data: data})
+      // res.status(200)
+      //     .json({
+      //       status:'success',
+      //       data:data,
+      //       message: 'Retrieved ALL music'
+      //     });
       })
       .catch(function (err){
         return next(err);
@@ -26,13 +27,14 @@ function getAllMusic(req, res, next){
     }
 function getSingleAlbum(req, res, next){
       var songID = parseInt(req.params.id);
-      db.one('SELECT * FROM album WHERE id = $1', songID)
+      db.any('SELECT * FROM album WHERE id = $1', songID)
       .then(function (data){
+        res.render('../views/index.pug', {data: data})
         res.status(200)
           .json({
             status: 'success',
             data: data,
-            message: 'Song'
+            message: 'Album'
           });
       })
       .catch(function (err){
@@ -45,8 +47,9 @@ function getSingleSong(req, res, next){
   var songID = parseInt(req.params.id);
   db.one('SELECT * FROM songs WHERE id = $1', songID)
   .then(function (data){
-    res.status(200)
-      .json({
+    res.render('../views/index.pug', {data: data})
+     res.status(200)
+     .json({
         status: 'success',
         data: data,
         message: 'Song'
@@ -57,30 +60,18 @@ function getSingleSong(req, res, next){
   });
 }
 
-function createSong(req, res, next){
-  req.body.length = parseInt(req.body.length);
-  db.none('INSERT INTO songs VALUES(song_Title, length, song_Count)' + '${song_Title}, ${length}, ${song_Count})',
-  req.body)
-  .then(function (){
-    res.status(200)
-      .json({
-        status: 'success',
-        message: 'Inserted one song'
-      })
-  })
-  .catch(function (err){
-    return next(err);
-  });
+function createSong( song_title, artist ) {
+
+  console.log(song_title);
+  return db.one('INSERT INTO songs(song_title, artist) VALUES ($1, $2) RETURNING id',[song_title, artist])
 }
 
-/* test
+function updateSong( song_title, artist ) {
 
-$ curl --data "song_Title=Fantasy&length=4&song_Count=4" \
-http://127.0.0.1:3000/api/puppies
-
-*/
-
-function updateSong(req, res, next){
+  console.log(song_title);
+  return db.one('INSERT INTO songs(song_title, artist) VALUES ($1, $2) RETURNING id',[song_title, artist])
+}
+/*function updateSong(req, res, next){
   db.none('UPDATE songs SET songTitle = $1, length = #2, songCount = $3',
 [req.body.name, req.body.songTitle, parseInt(req.body.length), parse(req.body.songCount)])
   .then(function (){
@@ -94,6 +85,7 @@ function updateSong(req, res, next){
     return next(err);
   });
 }
+*/
 
 function removeSong(req, res, next){
   var songID = parseInt(req.params.id);
@@ -113,6 +105,7 @@ function removeSong(req, res, next){
 
 module.exports = {
   getAllMusic: getAllMusic,
+  getSingleAlbum: getSingleAlbum,
   getSingleSong: getSingleSong,
   createSong: createSong,
   updateSong: updateSong,

@@ -1,5 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  body
+      h1 Music Player
+      p beta v1.0.0
+      #container.col
+        form(action='/api/music/add' method = 'post')
+          | song_title:
+          br
+          input(type='text', name='song_title', value='')
+          br
+          |       artist:
+          br
+          input(type='text', name='artist', value='')
+          br
+          input(type='submit', value='Submit')
+      #box
+        each item in data
+          p= item.id
+          p= item.album_title
+          p= item.song_title
+          p= item.artist

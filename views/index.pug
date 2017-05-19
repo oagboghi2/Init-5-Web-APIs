@@ -2,11 +2,13 @@ extends layout
 
 block content
   body
-      h1 Music Player
+      h1
+        a(href='http://127.0.0.1:3000')
+            Music Player
       p beta v1.0.0
       #container.col
         form(action='/api/music/add' method = 'post')
-          | song_title:
+          | song_title:``
           br
           input(type='text', name='song_title', value='')
           br
@@ -15,9 +17,30 @@ block content
           input(type='text', name='artist', value='')
           br
           input(type='submit', value='Submit')
+      .col2
+            form(action='/api/music/album/' method = 'get')
+              | album_title:
+              br
+              input(type='text', name='album_title', value='')
+              br
+              input(name='search', type='submit', value='Submit')
+            form(action='/api/music/songs/' method = 'get')
+              | song_title:
+              br
+              input(type='text', name='song_title', value='')
+              br
+              input(name='search', type='submit', value='Submit')
+      .col3
+              form(action='/api/music/'     method = 'delete')
+              | DELETE:
+              br
+              input(name='delete', type='submit', value='Submit')
+
+
       #box
         each item in data
           p= item.id
           p= item.album_title
           p= item.song_title
           p= item.artist
+          iframe(width='420', height='315', src= item.video frameborder="0" allowfullscreen)

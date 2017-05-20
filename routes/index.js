@@ -10,10 +10,10 @@ router.get('/api/music/songs/', db.getSingleSong);
 router.get('/api/music/album/', db.getSingleAlbum);
 router.post('/api/music/add/', function( req, res ) {
   const { song_title, artist } = req.body
-  console.log(req.body);
-  console.log( 'TITLE', song_title )
-  console.log( 'BODY ', req.body)
-  db.createSong( song_title, artist )
+  // console.log(req.body);
+  // console.log( 'TITLE', song_title )
+  // console.log( 'BODY ', req.body)
+   db.createSong( song_title, artist )
     .then( function() { res.status(201).json({
           status: 'success',
           message: 'Inserted one song'

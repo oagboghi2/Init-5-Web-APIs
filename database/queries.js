@@ -11,7 +11,7 @@ var db = pgp(connectionString);
 
 //add query functions
 function getAllMusic(req, res, next){
-  db.any('SELECT * FROM album')
+  db.any('SELECT * FROM songs')
     .then(function (data){
       res.render('../views/index.pug', {data: data})
       console.log(data);
@@ -75,22 +75,9 @@ function updateSong( song_title, artist ) {
   return db.one('UPDATE songs(song_title, artist) SET ($1, $2) RETURNING id',[song_title, artist])
 }
 
-//UPDATE songs SET song_titles = '' WHERE id = 1;
-
 function removeSong(req, res, next){
-  var song_title = parseInt(req.query.song_title);
+  var song_title = req.query.song_title;
   db.result('DELETE FROM songs WHERE song_title = $1', song_title)
-    // .then(function (result){
-    //   res.status(200)
-    //     .json({
-    //       status: 'success',
-    //       message: 'Removed song'
-    //     })
-    //     /*jshint ignore:end */
-    // })
-    // .catch(function (err){
-    //   return next(err);
-    // });
 }
 
 module.exports = {

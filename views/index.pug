@@ -8,13 +8,25 @@ block content
       p beta v1.0.0
       #container.col
         form(action='/api/music/add' method = 'post')
-          | song_title:``
+          | song_title:
           br
           input(type='text', name='song_title', value='')
           br
           |       artist:
           br
           input(type='text', name='artist', value='')
+          br
+          |       length
+          br
+          input(type='text', name='length', value='')
+          br
+          |       song_count
+          br
+          input(type='text', name='song_count', value='')
+          br
+          |       video
+          br
+          input(type='text', name='video', value='')
           br
           input(type='submit', value='Submit')
       .col2
@@ -31,13 +43,15 @@ block content
               br
               input(name='search', type='submit', value='Submit')
       .col3
-              form(action='/api/music/'     method = 'delete')
-              | DELETE:
-              br
-              input(name='delete', type='submit', value='Submit')
+              form(action='/api/music/album/' method = 'get')
+                | DELETE:
+                br
+                input(type='text', name='album_title', value='')
+                br
+                input(name='search', type='submit', value='Submit')
 
 
-      #box
+      .col4
         each item in data
           p= item.id
           p= item.album_title

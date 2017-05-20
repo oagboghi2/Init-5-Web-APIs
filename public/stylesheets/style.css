@@ -7,9 +7,9 @@ a {
   color: #00B7FF;
 }
 
-/*html{
+html{
   background: url(http://i.imgur.com/b9r5sEL.jpg);
-}*/
+}
 .col{
     display: -webkit-flex;
     display: flex;
@@ -23,24 +23,30 @@ a {
   display: -webkit-flex;
   display: flex;
   width: 300px;
-  height: 100px;
-  justify-content: flex-start;
+  height: 75px;
   background-color: lightgrey;
   BORDER-STYLE: solid;
   border-color: black;
-
 }
-.col2{
+.col3{
   display: -webkit-flex;
   display: flex;
-  width: 100px;
-  height: 100px;
-  justify-content: flex-end;
+  width: 300px;
+  height: 75px;
   background-color: lightgrey;
   BORDER-STYLE: solid;
   border-color: black;
-
 }
+/*.col4{
+  display: -webkit-flex;
+  display: flex;
+  width: 300px;
+  height: 750px;
+  background-color: lightgrey;
+  BORDER-STYLE: solid;
+  border-color: black;
+}*/
+
 h1{
 
 }

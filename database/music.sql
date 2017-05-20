@@ -26,6 +26,15 @@ video VARCHAR(512),
 artist VARCHAR(255)
 );
 
+DROP TABLE IF EXISTS Playlists;
+CREATE TABLE Playlists(
+id SERIAL PRIMARY KEY,
+song_title VARCHAR(255),
+genre VARCHAR,
+video VARCHAR(512),
+artist VARCHAR(255)
+);
+
 INSERT INTO album( album_title, song_count, genre, artist ) VALUES('The Search for Everything', 12, 'Rock and Roll/Blues', 'John Mayer' );
 INSERT INTO album( album_title, song_count, genre, artist ) VALUES('Where does this door go', 12, 'Neo-Soul', 'Mayer hawthorne' );
 INSERT INTO album( album_title, song_count, genre, artist ) VALUES('Good Kid/Mad City', 16, 'Rap/HipHop', 'Kendrick Lamarr' );
@@ -55,6 +64,10 @@ SELECT album_title, artists FROM artist
 			JOIN songs
 			ON songs.id = album.id;
 WHERE albumTitle LIKE 'The Search for Everything';
+
+SELECT DISTINCT artist FROM album
+  LEFT JOIN songs
+    ON video
 -- SELECT albumTitle FROM album;
 -- SELECT * FROM playlist;
 -- SELECT * FROM songs;
